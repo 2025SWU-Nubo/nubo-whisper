@@ -6,11 +6,10 @@ import uuid
 
 app = FastAPI()
 
+model = whisper.load_model("base")
 
 @app.post("/transcribe")
 async def transcribe(file: UploadFile = File(...)):
-  # Whisper 모델은 요청 시 로딩 (로컬 캐시 있음)
-  model = whisper.load_model("base")
 
   # 업로드된 오디오 파일을 임시로 저장
   file_extension = os.path.splitext(file.filename)[1]
